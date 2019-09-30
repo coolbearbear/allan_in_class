@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'allan_in_class.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        default='postgres://postgres:luvmiya@127.0.0.1:5432/mysite'
+        default='postgres://postgres:luvmiya@127.0.0.1:5432/allan_in_class'
     )
 }
 

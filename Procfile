@@ -1,3 +1,3 @@
 # Procfile
 
-web: gunicorn mysite:app
+web: gunicorn mysite-allan:app

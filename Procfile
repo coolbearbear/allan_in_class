@@ -1,1 +1,1 @@
-web: gunicorn mysite-allan:app
+web: gunicorn allan_in_class:wsgi

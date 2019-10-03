@@ -1,1 +1,1 @@
-web: gunicorn allan_in_class:wsgi
+web: gunicorn allan_in_class.wsgi

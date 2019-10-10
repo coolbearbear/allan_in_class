@@ -17,7 +17,7 @@ class Post(models.Model):
         settings.AUTH_USER_MODEL,
         on_delete=models.PROTECT,
         related_name='blog_posts',
-        null=True,
+        null=False,
     )
     title = models.CharField(max_length=255)
     status = models.CharField(
@@ -27,7 +27,7 @@ class Post(models.Model):
         help_text='Set to "published" to make public',
     )
     slug = models.SlugField(
-        null=True,
+        null=False,
         unique_for_date='published', #Slug is unique for publication date
     )
     content = models.TextField()

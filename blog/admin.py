@@ -2,6 +2,14 @@ from django.contrib import admin
 from . import models
 # Register your models here.
 
+@admin.register(models.Topic)
+class TopicAdmin(admin.ModelAdmin):
+    list_display = (
+        'name',
+        'slug',
+    )
+    prepopulated_fields = {'slug': ('name',)}
+
 class PostAdmin(admin.ModelAdmin):
     list_display = (
         'title',
@@ -9,6 +17,10 @@ class PostAdmin(admin.ModelAdmin):
         'created',
         'updated',
         #order is typed order
+    )
+    list_filter = (
+        'status',
+        'topics'
     )
     search_fields = (
         'title',

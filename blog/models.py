@@ -1,7 +1,11 @@
 from django.conf import settings
 from django.db import models
+from django.utils import timezone
 
 # Create your models here.
+
+
+
 
 class Topic(models.Model):
     name = models.CharField(
@@ -16,7 +20,12 @@ class Topic(models.Model):
     class Meta:
         ordering = ['name']
 
+class PostQuerySet(models.QuerySet):
+    def published(self):
+        return self.filter(status=self.model.PUBLISHED)
 
+    def drafts(self):
+        return self.filter(status=self.model.DRAFT)
 
 class Post(models.Model):
     """
@@ -60,12 +69,16 @@ class Post(models.Model):
         help_text='The date & time this article was published',
     )
 
+    objects = PostQuerySet.as_manager()
 
     class Meta:
         ordering = ['-created']
         #the -created means the reverse of created
         #created is assending order
 
-
     def __str__(self):
         return self.title
+
+    def publish(self):
+        self.status = self.PUBLISHED
+        self.published = timezone.now()

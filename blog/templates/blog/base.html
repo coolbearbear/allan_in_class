@@ -1,0 +1,18 @@
+<!-- blog/templates/blog/base.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>My Blog –{% block page_title%}An awesome blog{% endblock %}</title>
+</head>
+
+<body>
+  <main>
+    <h1>My Blog</h1>
+    {% block main %}
+    <!-- Content for the main block will be rendered here -->
+    {% endblock %}
+  </main>
+</body>
+</html>

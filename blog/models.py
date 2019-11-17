@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.db import models
 from django.utils import timezone
+from django.contrib.auth import get_user_model
 
 # Create your models here.
 
@@ -21,11 +22,18 @@ class Topic(models.Model):
         ordering = ['name']
 
 class PostQuerySet(models.QuerySet):
+    """
+    represents querysets for post
+    """
     def published(self):
         return self.filter(status=self.model.PUBLISHED)
 
     def drafts(self):
         return self.filter(status=self.model.DRAFT)
+
+    def get_authors(self):
+        User = get_user_model()
+        return User.objects.filter(blog_posts__in=self).distinct()
 
 class Post(models.Model):
     """

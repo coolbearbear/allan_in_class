@@ -27,3 +27,24 @@ def test_published_action():
     post.publish()
     assert post.status == Post.PUBLISHED
     assert post.published == dt.datetime(2020, 1, 1, 1, tzinfo=dt.timezone.utc)
+
+
+def test_get_authors_returns_users_who_have_authored_a_post(django_user_model):
+    # create a user
+    author = mommy.make(django_user_model)
+    # create a post that is authored by the user
+    mommy.make('blog.Post', author=author)
+    # create another user - but this one won't have any post
+    mommy.make(django_user_model)
+
+    assert list(Post.objects.get_authors()) == [author]
+
+
+def test_get_authors_returns_unique_users(django_user_model):
+    # create a user
+    author = mommy.make(django_user_model)
+    # create multiple posts. the _quantity argument can be used
+    # to specify how many objects to create.
+    mommy.make('blog.Post', author=author, _quantity=3)
+
+    assert list(Post.objects.get_authors()) == [author]
